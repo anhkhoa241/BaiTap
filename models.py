@@ -1,27 +1,5 @@
-# from app import db
-# class Student(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     name = db.Column(db.String(100), nullable=False)
-#     email = db.Column(db.String(100), unique=True, nullable=False)
-
-
-# class Tutor(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     name = db.Column(db.String(100), nullable=False)
-#     subjeck = db.Column(db.String(100), nullable=False)
-#     experience_year = db.Column(db.Integer, default=0)
-
-
-# class User(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     name = db.Column(db.String(100), nullable=False)
-#     email = db.Column(db.String(100), unique=True, nullable=False)
-
-
-# from extensions import db
-# import enum
-# from datetime import time
-
+# Định nghĩa các bảng trong database.
+# Mỗi class là một bảng, mỗi thuộc tính là một cột.
 from datetime import datetime, time
 import enum
 from extensions import db, bcrypt  # bcrypt từ extensions
@@ -275,3 +253,4 @@ class User(db.Model):
 
     def to_dict(self):
         return {"id": self.id, "email": self.email, "role": self.role, "customer_id": self.customer_id, "tutor_id": self.tutor_id}
+
