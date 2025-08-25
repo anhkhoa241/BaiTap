@@ -1,0 +1,21 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# venv
+venv/
+.venv/
+ENV/
+
+# secrets & configs
+.env
+instance/
+*.db
+*.sqlite3
+
+# editor / system
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
