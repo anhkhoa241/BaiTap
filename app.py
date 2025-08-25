@@ -37,6 +37,10 @@ app.register_blueprint(api_bp, url_prefix="/api")
 def home():
     return "Flask app đang chạy ngon lành 🚀"
 
+@app.route("/home")
+def trang_chu():
+    return "Trang chủ"
+
 # 8. Chạy app
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0", port=9000)

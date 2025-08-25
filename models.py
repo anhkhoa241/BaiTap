@@ -51,6 +51,9 @@ class Customer(TimestampMixin, db.Model):
     # 1 khách có nhiều học viên
     students = db.relationship("Student", back_populates="customer", cascade="all, delete-orphan")
 
+     # Thêm quan hệ tới User
+    user = db.relationship("User", back_populates="customer", uselist=False)  
+
     def __repr__(self):
         return f"<Customer {self.full_name}>"
 
@@ -123,6 +126,9 @@ class Tutor(TimestampMixin, db.Model):
 
     # 1-N booking
     bookings = db.relationship("Booking", back_populates="tutor")
+
+    # Thêm quan hệ tới User
+    user = db.relationship("User", back_populates="tutor", uselist=False)
 
     def __repr__(self):
         return f"<Tutor {self.full_name}>"
@@ -233,13 +239,24 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)  # email dùng để login
     password_hash = db.Column(db.String(128), nullable=False)       # hash mật khẩu
-    role = db.Column(db.String(20), nullable=False, default="customer")  # customer|tutor|admin
+    
+    # role: xác định quyền hạn của user
+    role = db.Column(
+        db.String(20), 
+        nullable=False, 
+        default="customer"
+    )  # customer|tutor|admin
 
     # Nếu muốn gắn vào customer/tutor profile (nếu đã có bảng customers/tutors)
     customer_id = db.Column(db.Integer, db.ForeignKey("customers.id", ondelete="SET NULL"), nullable=True)
     tutor_id = db.Column(db.Integer, db.ForeignKey("tutors.id", ondelete="SET NULL"), nullable=True)
 
     created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+
+     # Quan hệ ngược để dễ query
+    customer = db.relationship("Customer", back_populates="user", uselist=False)
+    tutor = db.relationship("Tutor", back_populates="user", uselist=False)
+
 
     # helper methods
     def set_password(self, raw_password: str) -> None:
